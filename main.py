@@ -6,17 +6,17 @@
 #    By: lflandri <liam.flandrinck.58@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/19 16:39:00 by lflandri          #+#    #+#              #
-#    Updated: 2024/09/20 15:56:37 by lflandri         ###   ########.fr        #
+#    Updated: 2024/09/24 18:52:39 by lflandri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import sys
-from class_d.operation import  operation
+from class_d.operation import  operation, acceptedType
 from equationResolver import  equationResolve
 
-
-
 def __main__() -> int:
+    acceptedType.append(complex)
+    acceptedType.append(operation)
     sys.setrecursionlimit(2000)
     programmRunning = True
     try :
@@ -40,9 +40,10 @@ def __main__() -> int:
                 equationResolve(entry[4:])
             else :
                 #TODO normal calculation
-                print(entry)  
+                print(entry)
+                print(operation(entry))    
     except BaseException as exeption :
-        # lol = 1/0
+        lol = 1/0
         print(f"Error : {exeption.args[0]} ")
         return 1
     return 0

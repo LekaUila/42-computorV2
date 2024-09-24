@@ -6,12 +6,11 @@
 #    By: lflandri <liam.flandrinck.58@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/28 14:19:10 by lflandri          #+#    #+#              #
-#    Updated: 2024/09/20 15:12:05 by lflandri         ###   ########.fr        #
+#    Updated: 2024/09/24 18:52:20 by lflandri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-from class_d.Complex import Complex
-acceptedType = [int, float, Complex]
+acceptedType = [int, float]
 
 from mathFunction import abs, sqrt
 

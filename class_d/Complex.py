@@ -6,13 +6,13 @@
 #    By: lflandri <liam.flandrinck.58@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/17 15:53:22 by lflandri          #+#    #+#              #
-#    Updated: 2024/07/26 13:53:39 by lflandri         ###   ########.fr        #
+#    Updated: 2024/09/24 17:38:26 by lflandri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 class Complex :
     
-    def __init__(this, reel, imaginary):
+    def __init__(this, reel=0, imaginary=0):
         this.reel = reel
         this.imaginary = imaginary
         

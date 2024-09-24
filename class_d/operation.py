@@ -6,14 +6,50 @@
 #    By: lflandri <liam.flandrinck.58@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/23 13:34:57 by lflandri          #+#    #+#              #
-#    Updated: 2024/09/20 15:57:00 by lflandri         ###   ########.fr        #
+#    Updated: 2024/09/24 18:52:11 by lflandri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from mathFunction import power, abs
+from class_d.Matrix import Matrix, acceptedType
 from class_d.Complex import Complex
 # Utils fonction
 
+def createMatrix(str):
+    i = 0
+    matrixConstructor = []
+    while i < len(str):
+        if i < len(str) and (str[i] == '(' or str[i] == '[') :
+            newTab = []
+            save = i
+            startContent = i + 1
+            tabcheck = [str[i]]
+            i+=1
+            while i < len(str) and len(tabcheck) != 0:
+                if str[i] == '(' or str[i] == '[' :
+                    tabcheck += [str[i]]
+                elif str[i] == ')' :
+                    if tabcheck[-1] == '(' :
+                        tabcheck.pop()
+                    else :
+                        raise BaseException(f"No end to paranthese init in '{str}' string")
+                elif str[i] == ']' :
+                    if tabcheck[-1] == '[':
+                        tabcheck.pop()
+                    else :
+                        raise BaseException(f"No end to matrix constructor init in '{str}' string")
+                elif str[i] == ',' and len(tabcheck) == 1:
+                    newTab.append(operation(str[startContent : i]))
+                    startContent = i + 1
+                i += 1
+            if (len(tabcheck) != 0):
+                raise BaseException(f"No end to paranthese init at {save} index of '{str}' string")
+            else :
+                newTab.append(operation(str[startContent : i - 1]))
+                matrixConstructor += [newTab]
+        else :
+            i += 1
+    return Matrix(listP=matrixConstructor)
 
 def parseValueOperation(str):
     i = 0
@@ -24,7 +60,7 @@ def parseValueOperation(str):
         raise BaseException("Inexistant Value In Operation.")
     elif str[i] in "0123456789-" :
         try :
-            result = Complex(str)
+            result = Complex(reel=int(str))
         except :
             raise BaseException(f"{str} cannot be convert to number")
     else :
@@ -225,23 +261,35 @@ class operation:
             while i < len(str) and str[i] == ' ':
                 i+=1
             hasValueExistent = False
-            if i < len(str) and str[i] == '(' :
+            if i < len(str) and (str[i] == '(' or str[i] == '[') :
                 save = i
-                count = 1
+                tabcheck = [str[i]]
                 i+=1
-                while i < len(str) and count != 0:
-                    if str[i] == '(' :
-                        count += 1
-                    if str[i] == ')' :
-                        count -=1
+                while i < len(str) and len(tabcheck) != 0:
+                    if str[i] == '(' or str[i] == '[' :
+                        tabcheck += [str[i]]
+                    elif str[i] == ')' :
+                        if tabcheck[-1] == '(' :
+                            tabcheck.pop()
+                        else :
+                            raise BaseException(f"No end to paranthese initin '{str}' string")
+                    elif str[i] == ']' :
+                        if tabcheck[-1] == '[':
+                            tabcheck.pop()
+                        else :
+                            raise BaseException(f"No end to matrix constructor initin '{str}' string")
                     i+=1
-                if (count != 0):
+                if (len(tabcheck) != 0):
                     raise BaseException(f"No end to paranthese init at {save} index of '{str}' string")
                 else :
-                    this.left = operation(str[save + 1 : i - 1])
+                    if str[save] == '(' :
+                        this.left = operation(str[save + 1 : i - 1])
+                        if this.left.left == None :
+                            raise BaseException(f"Need a value at {save + 1} index of '{str}' string")
+                    elif str[save] == '[' :
+                        this.left = createMatrix(str[save + 1 : i - 1])
                     hasValueExistent = True
-                    if this.left.left == None :
-                        raise BaseException(f"Need a value at {save + 1} index of '{str}' string")
+
             
             while i < len(str):
                 if str[i] not in " 0123456789.abcdefghijclmnopqrstuvwxyzAZERTYUIOPQSDFGHJKLMWXCVBN_":

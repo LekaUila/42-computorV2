@@ -6,11 +6,11 @@
 #    By: lflandri <liam.flandrinck.58@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/28 14:19:04 by lflandri          #+#    #+#              #
-#    Updated: 2024/07/26 13:41:17 by lflandri         ###   ########.fr        #
+#    Updated: 2024/09/24 18:50:52 by lflandri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-from class_d.Vector import Vector, acceptedType, Complex
+from class_d.Vector import Vector, acceptedType
 
 class Matrix:
     
@@ -160,9 +160,10 @@ class Matrix:
         
         
     def __str__(this):
-        s = ""
+        s = "["
         for i in this.__list:
-            s += "|" + i.__str__() + "|\n"
+            s += i.__str__()
+        s += "]"
         return s 
     
     def add(this, other):
