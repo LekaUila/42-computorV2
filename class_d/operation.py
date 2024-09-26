@@ -6,7 +6,7 @@
 #    By: lflandri <liam.flandrinck.58@gmail.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/23 13:34:57 by lflandri          #+#    #+#              #
-#    Updated: 2024/09/24 18:52:11 by lflandri         ###   ########.fr        #
+#    Updated: 2024/09/26 16:34:22 by lflandri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -921,5 +921,6 @@ class operation:
         opeSpe.right.left = newOpe
         return opeSpe
             
-            
+    def copy(this):
+        return operation(this.__str__())
         
